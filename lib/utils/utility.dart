@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 var smallTextStyle = TextStyle(
     fontSize: 12, fontWeight: FontWeight.normal, color: Colors.grey.shade700);
@@ -82,5 +83,42 @@ class Utility {
           builder: (context) => page,
           settings: RouteSettings(name: '${page.runtimeType}')),
     );
+  }
+
+  static String formattedDeviceDate(DateTime dateTime){
+   // dateTime = dateTime.add(Duration(hours: 5,minutes: 30));
+    return DateFormat('dd/MM/yyyy').format(dateTime);
+  }
+
+  static String formattedServerDate(DateTime dateTime){
+   // dateTime = dateTime.add(Duration(hours: 5,minutes: 30));
+    return DateFormat('yyyy-MM-dd').format(dateTime);
+  }
+
+  static DateTime parseServerDate(String dateTime){
+   // dateTime = dateTime.add(Duration(hours: 5,minutes: 30));
+    return DateFormat('yyyy-MM-dd').parse(dateTime);
+  }
+
+  static DateTime parseDeviceDate(String dateTime){
+   // dateTime = dateTime.add(Duration(hours: 5,minutes: 30));
+    return DateFormat('dd/MM/yyyy').parse(dateTime);
+  }
+
+  static String calculateAge(DateTime birthDate){
+    DateTime currentDate = DateTime.now();
+  int age = currentDate.year - birthDate.year;
+  int month1 = currentDate.month;
+  int month2 = birthDate.month;
+  if (month2 > month1) {
+    age--;
+  } else if (month1 == month2) {
+    int day1 = currentDate.day;
+    int day2 = birthDate.day;
+    if (day2 > day1) {
+      age--;
+    }
+  }
+  return "$age";
   }
 }

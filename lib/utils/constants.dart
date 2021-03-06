@@ -27,14 +27,12 @@ class Constants {
   static final PRODUCT_ID = "product_id";
   static final AUTORIZATION = "Autorization";
   static final BEARER = "Bearer";
+  static final TIMESTAMP = "timestamp";
+  static final CODE = "code";
+  static final MESSAGE = "message";
 
-  static final MOBILE = 'mobile';
-  static final OTP = 'otp';
-  static final TIMESTAMP = 'timestamp';
-  static final CODE = 'code';
-  static final MESSAGE = 'message';
-  static final APP_VERSION = 'appVersion';
-  static final DATA = "data";
+  static final API_KEY = "54YsbY2sxkg-zJEIEp2ThPZK4AIPpa5Q0kjjjPKecI";
+  static final OTP_SENDER_CODE = "MYPROS";
 
   static final RAMESH_SHIRTING = "Ramesh Shirtings";
   static final MONTORO_SHIRT = "Montoro Shirts";
@@ -54,7 +52,6 @@ class Constants {
   static final IOS_VERSION = "1";
   static final ANDROID_DEVICE = "android";
   static final IOS_DEVICE = "ios";
-
 
   static final CART_COUNT = "cart_count";
   static final NOTIFICATION_COUNT = "notification_count";
