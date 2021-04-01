@@ -33,16 +33,57 @@ class DatabaseHelper {
       onCreate: _onCreate,
       onUpgrade: (Database db, int oldVersion, int newVersion) async {
         // add new table or change structire here
-        //await _createTable(db, newVersion, DatabaseConstant.TOP_WAER_TABLE);
+        await _createTable(db, newVersion, DatabaseConstant.USER_TABLE);
       },
     );
     // SQL code to create the database table
   }
 
   _onCreate(Database db, int version) async {
-    // await _createTable(db, version, DatabaseConstant.TOP_WAER_TABLE);
+     await _createTable(db, version, DatabaseConstant.USER_TABLE);
     // await _createTable(db, version, DatabaseConstant.BOTTOM_WEAR_TABLE);
     // await _createTable(db, version, DatabaseConstant.FAV_TABLE);
+  }
+
+  // create tables using table name
+  Future _createTable(Database db, int version, String table) async {
+    await db.execute('''
+          CREATE TABLE IF NOT EXISTS $table (
+            ${DatabaseConstant.COL_ID} INTEGER PRIMARY KEY,
+            ${DatabaseConstant.COL_USER_ID} TEXT NOT NULL,
+            ${DatabaseConstant.COL_FIRST_NAME} TEXT,
+            ${DatabaseConstant.COL_MIDDLE_NAME} TEXT,
+            ${DatabaseConstant.COL_LAST_NAME} TEXT,
+            ${DatabaseConstant.COL_MOBILE} TEXT,
+            ${DatabaseConstant.COL_EMAIL} TEXT,
+            ${DatabaseConstant.COL_GENDER} TEXT,
+            ${DatabaseConstant.COL_DOB} TEXT,
+            ${DatabaseConstant.COL_AGE} TEXT,
+            ${DatabaseConstant.COL_MARTIAL_STATUS} TEXT,
+            ${DatabaseConstant.COL_PAN} TEXT,
+            ${DatabaseConstant.COL_DRIVING} TEXT,
+            ${DatabaseConstant.COL_VOTER_ID} TEXT,
+            ${DatabaseConstant.COL_PASSPORT} TEXT,
+            ${DatabaseConstant.COL_RATION_CARD} TEXT,
+            ${DatabaseConstant.COL_AADHAR_UID} TEXT,
+            ${DatabaseConstant.COL_FATHER_NAME} TEXT,
+            ${DatabaseConstant.COL_SPOUSE_NAME} TEXT,
+            ${DatabaseConstant.COL_MOTHER_NAME} TEXT,
+            ${DatabaseConstant.COL_ADDRESS} TEXT,
+            ${DatabaseConstant.COL_VILLAGE} TEXT,
+            ${DatabaseConstant.COL_CITY} TEXT,
+            ${DatabaseConstant.COL_STATE} TEXT,
+            ${DatabaseConstant.COL_PINCODE} TEXT,
+            ${DatabaseConstant.COL_COUNTRY} TEXT,
+            ${DatabaseConstant.COL_PRODUCT_ID} TEXT,
+            ${DatabaseConstant.COL_CONSENT} TEXT,
+            ${DatabaseConstant.COL_EMAIL_CONFIRMED} TEXT,
+            ${DatabaseConstant.COL_MOBILE_CONFIRMED} TEXT,
+            ${DatabaseConstant.COL_REFREAL_CODE} TEXT,
+            ${DatabaseConstant.COL_ROLE} TEXT,
+            ${DatabaseConstant.COL_STATUS} TEXT 
+          )
+          ''');
   }
 
   // Helper methods
@@ -74,7 +115,7 @@ class DatabaseHelper {
   Future<Map<String, dynamic>> queryGetRow(String table, String id) async {
     Database db = await instance.database;
     final list = await db
-        .query(table, where: "${DatabaseConstant.COL_ID} = ?", whereArgs: [id]);
+        .query(table, where: "${DatabaseConstant.COL_USER_ID} = ?", whereArgs: [id]);
     return list.length > 0 ? list[0] : null;
   }
 
@@ -82,8 +123,8 @@ class DatabaseHelper {
   // column values will be used to update the row.
   Future<int> update(Map<String, dynamic> row, var table) async {
     Database db = await instance.database;
-    int id = row[DatabaseConstant.COL_ID];
+    String id = row[DatabaseConstant.COL_USER_ID];
     return await db.update(table, row,
-        where: '${DatabaseConstant.COL_ID} = ?', whereArgs: [id]);
+        where: '${DatabaseConstant.COL_USER_ID} = ?', whereArgs: [id]);
   }
 }

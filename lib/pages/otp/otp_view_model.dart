@@ -56,25 +56,25 @@ class OtpViewModel extends BaseViewModel {
     try {
       _random = (Random().nextInt(900000) + 100000).toString();
       myPrint(_random);
-      await Future.delayed(Duration(seconds: 4));
-      _isLoading = false;
-      _timer = 13;
-      notifyListeners();
-      setTimer();
-      // final response = await _apiService.sendOtp(_mobile, _random);
-      // if (response.status == Constants.SUCCESS) {
-      //   _isLoading = false;
-      //   _timer = 13;
-      //   notifyListeners();
-      //   setTimer();
-      // } else {
-      //   _snackService.showSnackbar(
-      //       message: response.message,
-      //       mainButtonTitle: "RETRY",
-      //       onMainButtonTapped: () {
-      //         sendOtp();
-      //       });
-      // }
+      // await Future.delayed(Duration(seconds: 4));
+      // _isLoading = false;
+      // _timer = 13;
+      // notifyListeners();
+      // setTimer();
+      final response = await _apiService.sendotp(_mobile, _random);
+      if (response.status == Constants.SUCCESS) {
+        _isLoading = false;
+        _timer = 60;
+        notifyListeners();
+        setTimer();
+      } else {
+        _snackService.showSnackbar(
+            message: response.message,
+            mainButtonTitle: "RETRY",
+            onMainButtonTapped: () {
+              sendOtp();
+            });
+      }
     } on ApiErrorException catch (e) {
       _isLoading = false;
       notifyListeners();

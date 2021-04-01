@@ -1,7 +1,17 @@
 import 'dart:io';
 
+const STATUS_LOADING = "PAYMENT_LOADING";
+const STATUS_SUCESSFUL = "PAYMENT_SUCESSFUL";
+const STATUS_PENDING = "STATUS_PENDING";
+const STATUS_FAILED = "STATUS_FAILED";
+const STATUS_CHECKSUM_FAILED = "STATUS_CHECKSUM_FAILED";
+
 class Constants {
   static final RUPEE = "₹";
+  static final INTRO_DONE = "intro_done";
+  static final SUBSCRIPTION = "subscription";
+  static final SKIP_LOGIN = "skip_login";
+  static final LAST_NAME = "last_name";
   static final IS_LOGIN = "isLogin";
   static final TOKEN = "fcm_token";
   static final SUCCESS = "success";
@@ -10,6 +20,7 @@ class Constants {
   static final NOTIFICATION_ID = "notification_id";
   static final MAINCAT = "mainCategoryId";
   static final NAME = "name";
+  static final MIDDLE_NAME = "middle_name";
   static final USER_NAME = "username";
   static final MOBILE_NO = "mobile_no";
   static final ROLE = "role";
@@ -30,6 +41,13 @@ class Constants {
   static final TIMESTAMP = "timestamp";
   static final CODE = "code";
   static final MESSAGE = "message";
+  static final APP_VERSION = "appVersion";
+  static final DATA = "data";
+  static final STATE_LIST = "state_list";
+  static final CITY_LIST = "city_list";
+  static final SUBSCRIPTION_DATE = "subcription_date";
+  static final SUBSCRIPTION_EXPIRY_DATE = "subcription_expiry_date";
+  static final CRIF_DATA = "crif_data";
 
   static final API_KEY = "54YsbY2sxkg-zJEIEp2ThPZK4AIPpa5Q0kjjjPKecI";
   static final OTP_SENDER_CODE = "MYPROS";
@@ -47,6 +65,8 @@ class Constants {
 
   static final VERSION = (Platform.isAndroid) ? ANDROID_VERSION : IOS_VERSION;
   static final DEVICE = (Platform.isAndroid) ? ANDROID_DEVICE : IOS_DEVICE;
+
+  static final URL_DEVICE = "device";
 
   static final ANDROID_VERSION = "1";
   static final IOS_VERSION = "1";

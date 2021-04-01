@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:moneypros/app_widegt/AppTextFeildOutlineWidget.dart';
+import 'package:moneypros/app_widegt/app_neumorpic_text_feild.dart';
 import 'package:moneypros/pages/login/componenet/reset_password_view_model.dart';
 import 'package:moneypros/style/app_colors.dart';
 import 'package:stacked/stacked.dart';
 
 class ResetPassword extends StatefulWidget {
+  final onResetPasswordClicked;
+
+  const ResetPassword({Key key,@required this.onResetPasswordClicked}) : super(key: key);
   @override
   _ResetPasswordState createState() => _ResetPasswordState();
 }
@@ -14,8 +18,9 @@ class _ResetPasswordState extends State<ResetPassword> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ResetPasswordViewModel>.reactive(
       viewModelBuilder: () => ResetPasswordViewModel(),
-      builder: (_, model, child) => Padding(
-        padding: MediaQuery.of(context).viewInsets,
+      builder: (_, model, child) => Container(
+        height: MediaQuery.of(context).size.height / 2 +
+            MediaQuery.of(context).viewInsets.bottom,
         child: Container(
           child: ListView(
             shrinkWrap: true,
@@ -25,11 +30,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                     EdgeInsets.only(top: 20, bottom: 5, left: 15, right: 15),
                 child: Row(
                   children: [
-                    Expanded(
-                        child: Text(
-                      "RESET PASSWORD ",
-                      style: TextStyle(color: AppColors.blackLight),
-                    )),
+                    // Expanded(
+                    //     child: Text(
+                    //   "RESET PASSWORD ",
+                    //   style: TextStyle(color: AppColors.blackLight),
+                    // )),
                     GestureDetector(
                       onTap: () {
                         model.goBack();
@@ -42,16 +47,15 @@ class _ResetPasswordState extends State<ResetPassword> {
                   ],
                 ),
               ),
-              Divider(
-                color: AppColors.blackLight,
-              ),
+              // Divider(
+              //   color: AppColors.blackLight,
+              // ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   children: [
                     SizedBox(height: 20),
                     Padding(
-                      padding: const EdgeInsets.symmetric(),
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
@@ -73,13 +77,15 @@ class _ResetPasswordState extends State<ResetPassword> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 10),
                     AppTextFeildOutlineWidget(
                       controller: model.passwordController,
                       hintText: "Password",
                       obscureText: model.hidePassword,
                       fillColor: AppColors.white,
                       textInputType: TextInputType.emailAddress,
+                      onChanged: (e) {},
+                      onSubmit: (e) {},
                       //onChanged: model.onChanged,
                       suffix: IconButton(
                           icon: Icon((model.hidePassword)
@@ -89,13 +95,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                             model.showHidePassword();
                           }),
                     ),
-                    SizedBox(height: 20),
                     AppTextFeildOutlineWidget(
                       controller: model.confirmPasswordTextController,
                       hintText: "Confirm Password",
                       obscureText: model.hideConfirmPassword,
                       fillColor: AppColors.white,
                       textInputType: TextInputType.emailAddress,
+                      onChanged: (e) {},
+                      onSubmit: (e) {},
                       //onChanged: model.onChanged,
                       suffix: IconButton(
                           icon: Icon((model.hideConfirmPassword)
@@ -105,28 +112,39 @@ class _ResetPasswordState extends State<ResetPassword> {
                             model.showConfirmHidePassword();
                           }),
                     ),
-
                     Visibility(
                       visible: model.formError,
-                      child: Column(
-                       children: [
-                         SizedBox(height: 10),
-                         Text("Please enter valid password",style: TextStyle(color: Colors.red),)
-                       ], 
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Column(
+                          children: [
+                            SizedBox(height: 10),
+                            Text(
+                              "Please enter valid password",
+                              style: TextStyle(color: Colors.red),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    SizedBox(height: 40),
-                    FlatButton(
-                        onPressed: () {
-                          model.submitClicked();
-                        },
-                        textColor: Colors.white,
-                        color: AppColors.orange,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6)),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                        child: Text('SUBMIT')),
+                    SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: FlatButton(
+                          onPressed: () {
+                            model.submitClicked(onValidPassword: (text) {
+                              Navigator.pop(context);
+                              widget.onResetPasswordClicked(text);
+                            });
+                          },
+                          textColor: Colors.white,
+                          color: AppColors.orange,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 12),
+                          child: Text('SUBMIT')),
+                    ),
                     SizedBox(height: 40),
                   ],
                 ),

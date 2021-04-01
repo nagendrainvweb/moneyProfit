@@ -49,6 +49,7 @@ class CustomSelectWidegt extends StatelessWidget {
                       title: Text(
                         "${list[index]}",
                         style: TextStyle(
+                          fontSize: 14,
                           color: (list[index] == selectedText)
                               ? AppColors.orange
                               : AppColors.blackLight,

@@ -26,13 +26,15 @@ class _CreditMeterWidgetState extends State<CreditMeterWidget> {
       animationDuration: 2500,
       axes: <RadialAxis>[
         RadialAxis(
+          startAngle: 130,
+          endAngle: 50,
             labelOffset: 20,
             axisLineStyle: AxisLineStyle(
                 thicknessUnit: GaugeSizeUnit.factor, thickness: 0.15),
             radiusFactor: 0.9,
             minimum: 0,
             showTicks: false,
-            maximum: 900,
+            maximum: 900, // set maximum color to meter bar
             axisLabelStyle: GaugeTextStyle(fontSize: 12),
             // Added custom axis renderer that extended from RadialAxisRenderer
             onCreateAxisRenderer: handleCreateAxisRenderer,
@@ -67,7 +69,7 @@ class _CreditMeterWidgetState extends State<CreditMeterWidget> {
                   //enableDragging: true,
                   color: _pointerColor,
                   animationDuration: 1300,
-                  animationType: AnimationType.easeOutBack,
+                  animationType: AnimationType.linear,
                   // Sweep gradient not supported in web.
                   gradient: const SweepGradient(colors: <Color>[
                     Color(0xFFf75959),
@@ -114,47 +116,47 @@ class _CustomAxisRenderer extends RadialAxisRenderer {
   /// Returns the factor(0 to 1) from value to place the labels in an axis.
   @override
   double valueToFactor(double value) {
-    myPrint("value is $value");
+    //myPrint("value is $value");
     if (value >= 0 && value <= 300) {
-      print("if <300 value is ${(value * 0.145) / 300}");
+     // print("if <300 value is ${(value * 0.145) / 300}");
       return (value * 0.145) / 300;
       //return 0.0;
     } else if (value > 300 && value <= 400) {
       //  print("value is ${(((value - 2) * 0.125) / (5 - 2)) + (1 * 0.125)}");
 
-      print(
-          "if <= 400 ${(((value - 300) * 0.145) / (400 - 300)) + (1 * 0.145)}");
+     // print(
+       //   "if <= 400 ${(((value - 300) * 0.145) / (400 - 300)) + (1 * 0.145)}");
       return (((value - 300) * 0.145) / (400 - 300)) + (1 * 0.145);
       // return (value * 0.125) / 400;
     } else if (value > 400 && value <= 500) {
       //print("value is ${(((value - 5) * 0.125) / (10 - 5)) + (2 * 0.125)}");
       //return (((value - 400) * 0.125) / (500 - 400)) + (2 * 0.125);
-      print(
-          "if <= 500 ${(((value - 400) * 0.145) / (500 - 400)) + (2 * 0.145)}");
+      //print(
+      //    "if <= 500 ${(((value - 400) * 0.145) / (500 - 400)) + (2 * 0.145)}");
       return (((value - 400) * 0.145) / (500 - 400)) + (2 * 0.145);
     } else if (value > 500 && value <= 600) {
       // print("value is ${(((value - 10) * 0.125) / (20 - 10)) + (3 * 0.125)}");
       //return (((value - 500) * 0.125) / (600 - 500)) + (3 * 0.125);
-      print(
-          "if <= 600 ${(((value - 500) * 0.145) / (600 - 500)) + (3 * 0.145)}");
+      //print(
+      //    "if <= 600 ${(((value - 500) * 0.145) / (600 - 500)) + (3 * 0.145)}");
       return (((value - 500) * 0.145) / (600 - 500)) + (3 * 0.145);
     } else if (value > 600 && value <= 700) {
       //  print("value is ${(((value - 20) * 0.125) / (30 - 20)) + (4 * 0.125)}");
       // return (((value - 600) * 0.125) / (700 - 600)) + (4 * 0.125);
-      print(
-          "if <= 700 ${(((value - 600) * 0.145) / (700 - 600)) + (4 * 0.145)}");
+      //print(
+      //    "if <= 700 ${(((value - 600) * 0.145) / (700 - 600)) + (4 * 0.145)}");
       return (((value - 600) * 0.145) / (700 - 600)) + (4 * 0.145);
     } else if (value > 700 && value <= 800) {
       // print("value is ${(((value - 30) * 0.125) / (50 - 30)) + (5 * 0.125)}");
       //  return (((value - 700) * 0.125) / (800 - 700)) + (5 * 0.125);
-      print(
-          "if <= 800 ${(((value - 700) * 0.145) / (800 - 700)) + (5 * 0.145)}");
+      //print(
+      //    "if <= 800 ${(((value - 700) * 0.145) / (800 - 700)) + (5 * 0.145)}");
       return (((value - 700) * 0.145) / (800 - 700)) + (5 * 0.145);
     } else if (value > 800 && value <= 900) {
       // print("value is ${(((value - 50) * 0.125) / (100 - 50)) + (6 * 0.125)}");
       //return (((value - 50) * 0.125) / (100 - 800)) + (6 * 0.125);
-      print(
-          "if <= 900 ${(((value - 800) * 0.145) / (900 - 800)) + (6 * 0.145)}");
+      //print(
+      //    "if <= 900 ${(((value - 800) * 0.145) / (900 - 800)) + (6 * 0.145)}");
       return (((value - 800) * 0.145) / (900 - 800)) + (6 * 0.145);
     } else {
       // print("value is 1}");

@@ -3,7 +3,7 @@ import 'package:moneypros/style/app_colors.dart';
 
 final MaterialColor kPrimaryColor = MaterialColor(
   AppColors.primary.value,
-  const <int, Color>{
+   <int, Color>{
     50: AppColors.primary,
     100: AppColors.primary,
     200: AppColors.primary,

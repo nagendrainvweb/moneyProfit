@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "953850235321",
+    "project_id": "moneypros-e94f0",
+    "storage_bucket": "moneypros-e94f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953850235321:android:8510f2c68cb5da64e28e68",
+        "android_client_info": {
+          "package_name": "com.tech_moneypros.moneypros"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953850235321-tkh0vqm44i1pfe981lmbdjqr918d8crc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFXrDBeB5pOZwKSSB6oWJ3WHi38V6M_-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953850235321-tkh0vqm44i1pfe981lmbdjqr918d8crc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "953850235321-qqi91gd3bclbf0n8qsgjgr6rsfarmf5s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.moneypros.allinone"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953850235321:android:2e96f223264e1f6be28e68",
+        "android_client_info": {
+          "package_name": "com.techmoneypros.moneypros"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953850235321-tkh0vqm44i1pfe981lmbdjqr918d8crc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFXrDBeB5pOZwKSSB6oWJ3WHi38V6M_-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953850235321-tkh0vqm44i1pfe981lmbdjqr918d8crc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "953850235321-qqi91gd3bclbf0n8qsgjgr6rsfarmf5s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.moneypros.allinone"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

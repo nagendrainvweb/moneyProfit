@@ -21,7 +21,7 @@ class ResetPasswordViewModel extends BaseViewModel {
   bool get formError => _formError;
 
   void goBack() {
-    _navigationService.back();
+    _navigationService.back(result: false);
   }
 
   void showHidePassword() {
@@ -34,7 +34,7 @@ class ResetPasswordViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void submitClicked() {
+  void submitClicked({Function onValidPassword}) {
     final validPassword =
         RegExp(AppRegex.passwordRegex).hasMatch(passwordController.text);
     final validConfirmPassword =
@@ -44,7 +44,7 @@ class ResetPasswordViewModel extends BaseViewModel {
       // call api for change password
       _formError = false;
       notifyListeners();
-      goBack();
+      onValidPassword(confirmPasswordTextController.text);
     } else {
       _formError = true;
       notifyListeners();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moneypros/app_widegt/AppTextFeildOutlineWidget.dart';
+import 'package:moneypros/app_widegt/app_neumorpic_text_feild.dart';
 import 'package:moneypros/pages/forgot_password/forgot_password_view_model.dart';
 import 'package:moneypros/style/app_colors.dart';
 import 'package:stacked/stacked.dart';
@@ -18,8 +19,9 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ForgotPasswordViewModel>.reactive(
       viewModelBuilder: () => ForgotPasswordViewModel(),
-      builder: (_, model, child) => Padding(
-        padding: MediaQuery.of(context).viewInsets,
+      builder: (_, model, child) => Container(
+        height: MediaQuery.of(context).size.height / 2 +
+                MediaQuery.of(context).viewInsets.bottom,
         child: Container(
           child: ListView(
             shrinkWrap: true,
@@ -31,7 +33,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                   children: [
                     Expanded(
                         child: Text(
-                      "FORGOT PASSWORD ",
+                      "",
                       style: TextStyle(color: AppColors.blackLight),
                     )),
                     GestureDetector(
@@ -46,16 +48,16 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                   ],
                 ),
               ),
-              Divider(
-                color: AppColors.blackLight,
-              ),
+              // Divider(
+              //   color: AppColors.blackLight,
+              // ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+               // padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   children: [
                     SizedBox(height: 20),
                     Padding(
-                      padding: const EdgeInsets.symmetric(),
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
@@ -80,7 +82,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                     SizedBox(height: 30),
                     AppTextFeildOutlineWidget(
                       controller: model.numberController,
-                      hintText: "Enter Mobile Number",
+                      hintText: "Mobile Number",
                       fillColor: AppColors.white,
                       errorText: (model.numberError)
                           ? "Please enter valid number"
@@ -93,27 +95,32 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                           model.goBack();
                           widget.onNumberValidateSucess(
                               model.numberController.text);
+                        }else{
+                          
                         }
                       },
                     ),
                     SizedBox(height: 30),
-                    FlatButton(
-                        onPressed: () {
-                          if (model.numberController.text.isNotEmpty &&
-                              !model.numberError) {
-                                model.goBack();
-                            widget.onNumberValidateSucess(
-                                model.numberController.text);
-                          }
-                        },
-                        textColor: Colors.white,
-                        color: AppColors.orange,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6)),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                        child: Text('Send OTP')),
-                    SizedBox(height: 40),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: FlatButton(
+                          onPressed: () {
+                            if (model.numberController.text.isNotEmpty &&
+                                !model.numberError) {
+                                  model.goBack();
+                              widget.onNumberValidateSucess(
+                                  model.numberController.text);
+                            }
+                          },
+                          textColor: Colors.white,
+                          color: AppColors.orange,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6)),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                          child: Text('Send OTP')),
+                    ),
+                    SizedBox(height: 20),
                   ],
                 ),
               ),

@@ -6,6 +6,7 @@ class Spacing {
   static const double smallMargin = 8;
   static const double halfSmallMargin = 4;
   static const double bigMargin = 20;
+  static const double extraBigMargin = 22;
 
   // radius
   static const double sheetRadius = 20.0;

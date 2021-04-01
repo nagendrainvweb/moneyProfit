@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:moneypros/app/user_repository.dart';
 import 'package:moneypros/app_widegt/AppButton.dart';
 import 'package:moneypros/app_widegt/AppTextFeildOutlineWidget.dart';
+import 'package:moneypros/app_widegt/app_neumorpic_text_feild.dart';
 import 'package:moneypros/pages/otp/otp_page.dart';
 import 'package:moneypros/pages/otp/otp_view_model.dart';
 import 'package:moneypros/pages/register/register_viewmodel.dart';
+import 'package:moneypros/resources/images/images.dart';
 import 'package:moneypros/style/app_colors.dart';
 import 'package:moneypros/style/spacing.dart';
+import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 
@@ -17,9 +22,14 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
+    final userRepo = Provider.of<UserRepo>(context, listen: false);
     return ViewModelBuilder<RegisterViewModel>.reactive(
       viewModelBuilder: () => RegisterViewModel(),
+      onModelReady: (model) {
+        model.initData(userRepo);
+      },
       builder: (_, model, child) => Scaffold(
+        backgroundColor: AppColors.tileColor,
         appBar: PreferredSize(
             child: AppBar(
               brightness: Brightness.light,
@@ -39,12 +49,15 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             preferredSize: Size.fromHeight(45)),
         body: Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: Spacing.bigMargin, vertical: Spacing.bigMargin),
+          // padding: const EdgeInsets.symmetric(
+          //     horizontal: Spacing.bigMargin, vertical: Spacing.bigMargin),
           child: ListView(
             children: [
-              SizedBox(
-                height: 40,
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.15,
+                    vertical: Spacing.smallMargin),
+                child: SvgPicture.asset(ImageAsset.moneyProsLogo),
               ),
               AppTextFeildOutlineWidget(
                 controller: model.firstNameController,
@@ -54,7 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 textCapitalization: TextCapitalization.sentences,
                 onChanged: model.onChanged,
               ),
-              SizedBox(height: 20),
+              // SizedBox(height: 20),
               AppTextFeildOutlineWidget(
                 controller: model.lastNameController,
                 hintText: "Last Name",
@@ -63,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 textInputType: TextInputType.name,
                 onChanged: model.onChanged,
               ),
-              SizedBox(height: 20),
+              //SizedBox(height: 20),
               AppTextFeildOutlineWidget(
                 controller: model.emailController,
                 hintText: "Email address",
@@ -71,7 +84,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 textInputType: TextInputType.emailAddress,
                 onChanged: model.onChanged,
               ),
-              SizedBox(height: 20),
+              //SizedBox(height: 20),
               AppTextFeildOutlineWidget(
                 controller: model.numberController,
                 hintText: "Mobile Number",
@@ -79,7 +92,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 textInputType: TextInputType.number,
                 onChanged: model.onChanged,
               ),
-              SizedBox(height: 20),
+              //SizedBox(height: 20),
               AppTextFeildOutlineWidget(
                 controller: model.passwordController,
                 hintText: "Password",
@@ -95,11 +108,17 @@ class _RegisterPageState extends State<RegisterPage> {
                       model.showHidePassword();
                     }),
               ),
-              Text(
-                "(required minimum 5 alpanumeric characters)",
-                textScaleFactor: 0.9,
+              //SizedBox(height: 8),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 0),
+                child: Text(
+                  "(required minimum 5 alpanumeric characters)",
+                  textScaleFactor: 0.9,
+                  style: TextStyle(color: AppColors.green),
+                ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 8),
               AppTextFeildOutlineWidget(
                 controller: model.confirmPasswordController,
                 hintText: "Confirm Password",
@@ -115,24 +134,38 @@ class _RegisterPageState extends State<RegisterPage> {
                       model.showConfirmHidePassword();
                     }),
               ),
-              SizedBox(height: 40),
-              AppButtonWidget(
-                  text: "REGISTER",
-                  // width: MediaQuery.of(context).size.width * 0.5,
-                  onPressed: (model.validForm)
-                      ? () async {
-                          if (model.validForm) {
-                            final value = await _showOtpSheet(
-                                model.numberController.text);
-                            if (value) {
-                              model.registerUser();
-                            } else {}
-                          } else {
-                            model.showFormError();
+              SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: Spacing.bigMargin,
+                ),
+                child: AppButtonWidget(
+                    text: "REGISTER",
+                    // width: MediaQuery.of(context).size.width * 0.5,
+                    onPressed: () async {
+                      if (model.validForm) {
+                        final validUser = await model.verifyUser();
+                        if (validUser) {
+                          final value =
+                              await _showOtpSheet(model.numberController.text);
+                          if (value) {
+                            model.registerUser(context);
                           }
-                          // model.registerClicked();
                         }
-                      : null),
+                        //   final value =
+                        //       await _showOtpSheet(model.numberController.text);
+                        //   if (value) {
+                        //     model.registerUser();
+                        //   } else {}
+                        // } else {
+                        //   model.showFormError();
+                      } else {
+                        model.showFormError();
+                      }
+                      // model.registerClicked();
+                    }),
+              ),
+              SizedBox(height: 10),
             ],
           ),
         ),
@@ -144,8 +177,14 @@ class _RegisterPageState extends State<RegisterPage> {
     return showModalBottomSheet(
         context: context,
         isDismissible: false,
-        builder: (_) => OtpWidget(
-              number: number,
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12), topRight: Radius.circular(12))),
+        builder: (_) => Container(
+              child: OtpWidget(
+                number: number,
+              ),
             ));
   }
 }

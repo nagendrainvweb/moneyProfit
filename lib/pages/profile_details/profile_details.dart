@@ -33,7 +33,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
               border: Border.all(color: AppColors.grey400, width: 1.0),
               color: Colors.grey.shade100,
             ),
-            padding: EdgeInsets.all(Spacing.mediumMargin),
+            padding: EdgeInsets.all(Spacing.smallMargin),
             child: Column(
               children: [
                 SizedBox(height: 10),
@@ -43,6 +43,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   textCapitalization: TextCapitalization.words,
                   fillColor: AppColors.white,
                   textInputType: TextInputType.name,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -51,6 +53,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   textCapitalization: TextCapitalization.sentences,
                   fillColor: AppColors.white,
                   textInputType: TextInputType.name,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -59,6 +63,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   textCapitalization: TextCapitalization.sentences,
                   fillColor: AppColors.white,
                   textInputType: TextInputType.name,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -67,6 +73,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   textCapitalization: TextCapitalization.sentences,
                   fillColor: AppColors.white,
                   textInputType: TextInputType.name,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -75,6 +83,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   textCapitalization: TextCapitalization.sentences,
                   fillColor: AppColors.white,
                   textInputType: TextInputType.name,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -83,6 +93,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   textCapitalization: TextCapitalization.sentences,
                   fillColor: AppColors.white,
                   textInputType: TextInputType.name,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -90,6 +102,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   hintText: "Email Address *",
                   fillColor: AppColors.white,
                   textInputType: TextInputType.emailAddress,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -97,6 +111,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   hintText: "Mobile *",
                   fillColor: AppColors.white,
                   textInputType: TextInputType.number,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 GestureDetector(
@@ -113,6 +129,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     enabled: false,
                     fillColor: AppColors.white,
                     textInputType: TextInputType.name,
+                    onSubmit: (e){},
+                  onChanged: (e){},
                   ),
                 ),
                 SizedBox(height: 10),
@@ -131,6 +149,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     enableInteractiveSelection: false,
                     enabled: false,
                     textInputType: TextInputType.name,
+                    onSubmit: (e){},
+                  onChanged: (e){},
                   ),
                 ),
                 SizedBox(height: 10),
@@ -141,6 +161,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   enableInteractiveSelection: false,
                   enabled: false,
                   textInputType: TextInputType.name,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 GestureDetector(
@@ -160,6 +182,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     enableInteractiveSelection: false,
                     enabled: false,
                     textInputType: TextInputType.name,
+                    onSubmit: (e){},
+                  onChanged: (e){},
                   ),
                 ),
                 SizedBox(height: 15),
@@ -240,6 +264,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   fillColor: AppColors.white,
                   textCapitalization: TextCapitalization.characters,
                   textInputType: TextInputType.emailAddress,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -248,6 +274,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   fillColor: AppColors.white,
                   textCapitalization: TextCapitalization.characters,
                   textInputType: TextInputType.name,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -255,6 +283,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   hintText: "Voter ID Number **",
                   fillColor: AppColors.white,
                   textInputType: TextInputType.name,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -263,6 +293,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   fillColor: AppColors.white,
                   textCapitalization: TextCapitalization.characters,
                   textInputType: TextInputType.name,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -271,6 +303,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   fillColor: AppColors.white,
                   textCapitalization: TextCapitalization.characters,
                   textInputType: TextInputType.name,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -279,6 +313,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   fillColor: AppColors.white,
                   textCapitalization: TextCapitalization.characters,
                   textInputType: TextInputType.number,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 15),
                 AppButtonWidget(
@@ -322,6 +358,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   maxLines: 2,
                   fillColor: AppColors.white,
                   textInputType: TextInputType.multiline,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -329,6 +367,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   hintText: "Village *",
                   fillColor: AppColors.white,
                   textInputType: TextInputType.name,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -337,6 +377,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   textCapitalization: TextCapitalization.sentences,
                   fillColor: AppColors.white,
                   textInputType: TextInputType.name,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -344,6 +386,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   textCapitalization: TextCapitalization.sentences,
                   fillColor: AppColors.white,
                   textInputType: TextInputType.name,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -352,6 +396,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   textCapitalization: TextCapitalization.sentences,
                   fillColor: AppColors.white,
                   textInputType: TextInputType.name,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 10),
                 AppTextFeildOutlineWidget(
@@ -359,6 +405,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   hintText: "Pin Code *",
                   fillColor: AppColors.white,
                   textInputType: TextInputType.name,
+                  onSubmit: (e){},
+                  onChanged: (e){},
                 ),
                 SizedBox(height: 15),
                 AppButtonWidget(
