@@ -78,12 +78,12 @@ class CreditScoreViewModel extends BaseViewModel with AppHelper {
         _setCrifData(resposne.data);
       } else {
         hasError = true;
-         notifyListeners();
+        notifyListeners();
       }
     } catch (e) {
       hasError = true;
       setBusy(false);
-       notifyListeners();
+      notifyListeners();
     }
   }
 
@@ -174,7 +174,7 @@ class CreditScoreViewModel extends BaseViewModel with AppHelper {
           setBusy(false);
           hideProgressDialogService();
           if (thrirdResponse.status == Constants.SUCCESS) {
-            _setCrifData(thrirdResponse.data);
+            _setCrifData(thrirdResponse.data,fromServer: true);
           } else {
             hasError = true;
             notifyListeners();
@@ -221,17 +221,22 @@ class CreditScoreViewModel extends BaseViewModel with AppHelper {
     }
   }
 
-  _setCrifData(CrifData crifData) {
+  _setCrifData(CrifData crifData, {bool fromServer = false}) {
     _crifData = crifData;
     if (_crifData.overdueList.isEmpty) {
       _currentTab = 0;
     }
     _score = int.parse(_crifData.scoreData.scoreValue);
+
     final dateTime = Utility.parseServerDate(_crifData.header.addedonDate);
     _asOnDate = Utility.formattedDeviceMonthDate(dateTime);
     final nextMonthDate = DateTime(dateTime.year, dateTime.month + 1, 6);
     _daysLeft = nextMonthDate.difference(DateTime.now()).inDays;
+
     myPrint("days left $_daysLeft");
+    if (fromServer) {
+      _animatedScore = _score;
+    }
     notifyListeners();
   }
 

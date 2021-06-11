@@ -143,7 +143,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     text: "REGISTER",
                     // width: MediaQuery.of(context).size.width * 0.5,
                     onPressed: () async {
-                      if (model.validForm) {
+                      if (model.checkform()) {
                         final validUser = await model.verifyUser();
                         if (validUser) {
                           final value =
@@ -160,7 +160,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         // } else {
                         //   model.showFormError();
                       } else {
-                        model.showFormError();
+                        //model.showFormError();
                       }
                       // model.registerClicked();
                     }),
@@ -184,6 +184,7 @@ class _RegisterPageState extends State<RegisterPage> {
         builder: (_) => Container(
               child: OtpWidget(
                 number: number,
+                type: "1",
               ),
             ));
   }

@@ -215,6 +215,7 @@ class _LoginPageState extends State<LoginPage> {
         isScrollControlled: true,
         builder: (_) => OtpWidget(
               number: number,
+              type: "2",
             ));
   }
 }

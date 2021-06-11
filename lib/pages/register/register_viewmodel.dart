@@ -47,18 +47,44 @@ class RegisterViewModel extends BaseViewModel with AppHelper {
 
   checkform() {
     final validEmail =
-        RegExp(AppRegex.email_regex).hasMatch(emailController.text);
+        RegExp(AppRegex.email_regex).hasMatch(emailController.text.trim());
     final validPassword =
-        RegExp(AppRegex.passwordRegex).hasMatch(passwordController.text);
+        RegExp(AppRegex.passwordRegex).hasMatch(passwordController.text.trim());
     final validFirstName =
-        RegExp(AppRegex.name_regex).hasMatch(firstNameController.text);
+        RegExp(AppRegex.name_regex).hasMatch(firstNameController.text.trim());
     final validLastName =
-        RegExp(AppRegex.name_regex).hasMatch(lastNameController.text);
+        RegExp(AppRegex.name_regex).hasMatch(lastNameController.text.trim());
 
     final validNumber =
-        RegExp(AppRegex.mobile_regex).hasMatch(numberController.text);
+        RegExp(AppRegex.mobile_regex).hasMatch(numberController.text.trim());
     final validConfirmPassword =
-        (passwordController.text == confirmPasswordController.text);
+        (passwordController.text == confirmPasswordController.text.trim());
+
+    if (!validFirstName) {
+      showFormError(msg:"Please Enter valid First Name");
+      return false;
+    }
+    if (!validLastName) {
+      showFormError(msg:"Please Enter valid Last Name");
+      return false;
+    }
+    if (!validEmail) {
+      showFormError(msg:"Please Enter valid Email Id");
+      return false;
+    }
+    if (!validNumber) {
+      showFormError(msg:"Please Enter valid Number");
+      return false;
+    }
+    if (!validPassword) {
+      showFormError(msg:"Please Enter valid Password");
+      return false;
+    }
+    if (!validConfirmPassword) {
+      showFormError(msg:"Please Enter valid Confirm Password");
+      return false;
+    }
+
 
     return (validEmail &&
         validPassword &&
@@ -78,8 +104,8 @@ class RegisterViewModel extends BaseViewModel with AppHelper {
     notifyListeners();
   }
 
-  void showFormError() {
-    _snackBarServices.showSnackbar(message: "Please fill valid details");
+  void showFormError({String msg}) {
+    _snackBarServices.showSnackbar(message: msg??"Please fill valid details");
   }
 
   void registerUser(BuildContext context) async {

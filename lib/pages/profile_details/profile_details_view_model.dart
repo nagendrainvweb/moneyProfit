@@ -275,8 +275,6 @@ class ProfileEditViewModel extends BaseViewModel with AppHelper {
     _basicFrom = from;
     final _userdetails = _userRepo.userDetails;
 
-    final date = Utility.parseServerDate(_userdetails.dob);
-
     firstNameController.text = _userdetails.firstName;
     middleNameController.text = _userdetails.middleName;
     lastNameController.text = _userdetails.lastName;
@@ -286,9 +284,15 @@ class ProfileEditViewModel extends BaseViewModel with AppHelper {
     spouseNameController.text = _userdetails.spouseName;
     emailController.text = _userdetails.email;
     numberController.text = _userdetails.mobile;
-    dobController.text = Utility.formattedDeviceDate(date);
     ageController.text = _userdetails.age;
     genderController.text = _userdetails.gender;
+    
+    try {
+      final date = Utility.parseServerDate(_userdetails.dob);
+      dobController.text = Utility.formattedDeviceDate(date);
+    } catch (e) {
+      myPrint(e.toString());
+    }
   }
 
   void initIdentitiy(UserRepo userRepo, bool editable, String from) {

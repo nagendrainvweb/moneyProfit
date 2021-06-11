@@ -52,7 +52,11 @@ class ApiService {
       String userName, String password) async {
     final commonFeilds = _getCommonFeild();
     final fcm = await Prefs.fcmToken;
-    final body = {"username": userName, "password": password, "fcm_token": "$fcm"};
+    final body = {
+      "username": userName,
+      "password": password,
+      "fcm_token": "$fcm"
+    };
     body.addAll(commonFeilds);
 
     myPrint(body.toString());
@@ -118,11 +122,12 @@ class ApiService {
     }
   }
 
-  Future<BasicResponse<String>> sendotp(String number, String otp) async {
+  Future<BasicResponse<String>> sendotp(
+      String number, String otp, String type) async {
     final commonFeilds = _getCommonFeild();
-    final body = {"mobile_number": number, "otp": otp};
+    final body = {"mobile_number": number, "otp": otp, "type": "$type"};
     body.addAll(commonFeilds);
-
+    myPrint(body.toString());
     try {
       final result = await http.post(UrlList.SEND_OTP, body: body);
       myPrint(result.body.toString());
@@ -220,14 +225,14 @@ class ApiService {
   Future<BasicResponse<LoginData>> registerUser(String firstName,
       String lastname, String email, String number, String password) async {
     final commonFeilds = _getCommonFeild();
-    final fcm =  await Prefs.fcmToken;
+    final fcm = await Prefs.fcmToken;
     final body = {
       "first_name": firstName,
       "last_name": lastname,
       "email": email,
       "number": number,
       "password": password,
-      "fcm_token":"$fcm",
+      "fcm_token": "$fcm",
     };
     body.addAll(commonFeilds);
 
@@ -796,14 +801,13 @@ class ApiService {
           BasicResponse<List<UserDocData>>.fromJson(json: response);
       List<UserDocData> userDocList = [];
       if (basicResponse.status == Constants.SUCCESS) {
-        if(response["data"] !=   null){
-           final list = response["data"];
-        for (var map in list) {
-          userDocList.add(UserDocData.fromJson(map));
+        if (response["data"] != null) {
+          final list = response["data"];
+          for (var map in list) {
+            userDocList.add(UserDocData.fromJson(map));
+          }
+          basicResponse.data = userDocList;
         }
-        basicResponse.data = userDocList;
-        }
-       
       }
       return basicResponse;
     } on SocketException catch (e) {

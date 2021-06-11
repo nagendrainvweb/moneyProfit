@@ -10,8 +10,9 @@ import 'package:stacked_hooks/stacked_hooks.dart';
 
 class OtpWidget extends StatefulWidget {
   final number;
+  final type;
 
-  const OtpWidget({Key key, this.number}) : super(key: key);
+  const OtpWidget({Key key, this.number,@required this.type}) : super(key: key);
   @override
   _OtpWidgetState createState() => _OtpWidgetState();
 }
@@ -22,7 +23,7 @@ class _OtpWidgetState extends State<OtpWidget> {
     return ViewModelBuilder<OtpViewModel>.reactive(
         viewModelBuilder: () => OtpViewModel(),
         onModelReady: (model) {
-          model.initData(widget.number);
+          model.initData(widget.number,widget.type);
           model.sendOtp();
         },
         builder: (_, model, child) => Container(
@@ -104,51 +105,47 @@ class _OtpWidgetState extends State<OtpWidget> {
                                       //     horizontal: 60,
                                       //     ),
                                       child: Center(
-                                          child: OtpTextFeildWidget())))
-                                          
-                                          ),
-                            SizedBox(height: 20),
-                          (model.isLoading)?
-                          Center(
-                            child:CircularProgressIndicator()
-                          )
-                          :  Container(
-                              padding: const EdgeInsets.symmetric(
-                                      horizontal: Spacing.mediumMargin,
-                              ),
-                              child: AppButtonWidget(
-                               text: "VERIFY OTP",
-                               width: double.maxFinite,
-                               isBig:false,
-                               color: AppColors.blue,
-                               onPressed: (){
-                                model.otpSubmitPressed();
-                               }, 
-                              ),
-                            ),
+                                          child: OtpTextFeildWidget())))),
+                          SizedBox(height: 20),
+                          (model.isLoading)
+                              ? Center(child: CircularProgressIndicator())
+                              : Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: Spacing.mediumMargin,
+                                  ),
+                                  child: AppButtonWidget(
+                                    text: "VERIFY OTP",
+                                    width: double.maxFinite,
+                                    isBig: false,
+                                    color: AppColors.blue,
+                                    onPressed: () {
+                                      model.otpSubmitPressed();
+                                    },
+                                  ),
+                                ),
                           // Center(
                           //   child: Row(
                           //     mainAxisAlignment: MainAxisAlignment.spaceAround,
                           //     children: <Widget>[
-                                // Row(
-                                //   mainAxisAlignment: MainAxisAlignment.center,
-                                //   children: <Widget>[
-                                //     (!model.isLoading)
-                                //         ? FlatButton(
-                                //             onPressed: () {
-                                //               model.otpSubmitPressed();
-                                //             },
-                                //             textColor: Colors.white,
-                                //             color: AppColors.orange,
-                                //             shape: RoundedRectangleBorder(
-                                //                 borderRadius:
-                                //                     BorderRadius.circular(6)),
-                                //             padding: EdgeInsets.symmetric(
-                                //                 horizontal: 20, vertical: 12),
-                                //             child: Text('SUBMIT'))
-                                //         : CircularProgressIndicator(),
-                                //   ],
-                                // ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   children: <Widget>[
+                          //     (!model.isLoading)
+                          //         ? FlatButton(
+                          //             onPressed: () {
+                          //               model.otpSubmitPressed();
+                          //             },
+                          //             textColor: Colors.white,
+                          //             color: AppColors.orange,
+                          //             shape: RoundedRectangleBorder(
+                          //                 borderRadius:
+                          //                     BorderRadius.circular(6)),
+                          //             padding: EdgeInsets.symmetric(
+                          //                 horizontal: 20, vertical: 12),
+                          //             child: Text('SUBMIT'))
+                          //         : CircularProgressIndicator(),
+                          //   ],
+                          // ),
                           //     ],
                           //   ),
                           // ),
@@ -158,7 +155,8 @@ class _OtpWidgetState extends State<OtpWidget> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: <Widget>[
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: Spacing.defaultMargin),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: Spacing.defaultMargin),
                                       child: Text(
                                         'Resend OTP code after ${model.timer} sec',
                                         style: TextStyle(
@@ -217,7 +215,7 @@ class OtpTextFeildWidget extends HookViewModelWidget<OtpViewModel> {
         controller: model.otpController,
         obscureText: false,
         animationType: AnimationType.fade,
-        textStyle: TextStyle(fontWeight: FontWeight.normal,fontSize: 16),
+        textStyle: TextStyle(fontWeight: FontWeight.normal, fontSize: 16),
         backgroundColor: Colors.transparent,
         pinTheme: PinTheme(
             // shape: PinCodeFieldShape.underline,

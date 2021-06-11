@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
@@ -179,6 +180,7 @@ class LoginViewModel extends BaseViewModel with AppHelper {
   }
 
   void notificationToken() async {
+    await Firebase.initializeApp();
     FirebaseMessaging messaging = FirebaseMessaging.instance;
 
     NotificationSettings settings = await messaging.requestPermission(

@@ -17,6 +17,7 @@ class OtpViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
 
   final otpController = TextEditingController();
+  String _type = "";
 
   bool _isOtpError = false;
   // send otp page variables
@@ -33,8 +34,9 @@ class OtpViewModel extends BaseViewModel {
   String get random => _random;
   String get enteredOtp => _enteredOtp;
 
-  void initData(String mobile) {
+  void initData(String mobile, String type) {
     this._mobile = mobile;
+    this._type = type;
   }
 
   otpSubmitPressed() {
@@ -61,7 +63,7 @@ class OtpViewModel extends BaseViewModel {
       // _timer = 13;
       // notifyListeners();
       // setTimer();
-      final response = await _apiService.sendotp(_mobile, _random);
+      final response = await _apiService.sendotp(_mobile, _random,_type);
       if (response.status == Constants.SUCCESS) {
         _isLoading = false;
         _timer = 60;
