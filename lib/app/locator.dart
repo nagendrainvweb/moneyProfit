@@ -13,6 +13,19 @@ void setUpLocator() {
   locator.registerLazySingleton(() => ApiService());
 }
 
+void setupSnackbarUi() {
+  final service = locator<SnackbarService>();
+
+  // Registers a config to be used when calling showSnackbar
+  service.registerSnackbarConfig(SnackbarConfig(
+    backgroundColor: Colors.grey.shade700,
+    textColor: Colors.white,
+   // titleColor: Colors.white,
+    messageColor: Colors.white,
+    mainButtonTextColor: Colors.black,
+  ));
+}
+
 setupDialogUi() {
   final dialogService = locator<DialogService>();
   final builders = {

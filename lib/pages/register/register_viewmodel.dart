@@ -41,7 +41,7 @@ class RegisterViewModel extends BaseViewModel with AppHelper {
   void registerClicked() {}
 
   onChanged(String value) {
-    _validForm = checkform();
+   // _validForm = checkform();
     notifyListeners();
   }
 

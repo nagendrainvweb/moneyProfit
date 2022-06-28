@@ -21,9 +21,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   setUpLocator();
   setupDialogUi();
+  setupSnackbarUi();
   final model = UserRepo();
   model.setCityList();
   model.setStateList();
@@ -63,7 +64,11 @@ class MyApp extends StatelessWidget {
                 brightness: Brightness.light,
                 titleTextStyle: TextStyle(color: AppColors.blackGrey),
                 iconTheme: IconThemeData(color: AppColors.blackGrey))),
-        home: (repo.login || repo.loginSkipped) ? HomePage(position: (repo.login && repo.subscribe)?1:0,) : LoginPage(),
+        home: (repo.login || repo.loginSkipped)
+            ? HomePage(
+                position: (repo.login && repo.subscribe) ? 1 : 0,
+              )
+            : LoginPage(),
         //LoginPage()
         //
       ),

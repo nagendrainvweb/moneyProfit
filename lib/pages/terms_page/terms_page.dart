@@ -103,8 +103,8 @@ class _TermsPageState extends State<TermsPage> {
         ),
         SizedBox(height: size),
         Html(data: desc,
-        onLinkTap: (String url)async{
-          await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
+        onLinkTap: (url,context,map,element)async{
+          await canLaunchUrl(Uri.parse(url)) ? await launchUrl(Uri.parse(url)) : throw 'Could not launch $url';
         },
         ),
         // Text(desc, style: TextStyle(color: AppColors.grey800, fontSize: 13))
