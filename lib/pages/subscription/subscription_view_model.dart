@@ -51,22 +51,22 @@ class SubscriptionViewModel extends BaseViewModel with AppHelper {
     notifyListeners();
   }
 
-  void onPayClicked({Function onPaymentDone}) async {
+  void onPayClicked(String code,String subscriptionId,String discountAmount,String payingAmount,  {Function onPaymentDone}) async {
     final subscription = _subscriptionPlans[_selectedPackage];
     final firstName = await Prefs.firstName;
     final lastName = await Prefs.lastName;
     final email = await Prefs.emailId;
     final number = await Prefs.mobileNumber;
 
-    _initiatePayment(email, number, subscription.price,
+    _initiatePayment(code,subscriptionId, discountAmount,email, number, payingAmount,
         firstName + " " + lastName, onPaymentDone);
   }
 
-  _initiatePayment(String email, String number, String amount, String name,
+  _initiatePayment(String code,String subscriptionId,String discountAmount,String email, String number, String amount, String name,
       Function onPaymentDone) async {
     showProgressDialogService("Please wait...");
     try {
-      final resposne = await _apiService.initiatePayment(email, number, amount);
+      final resposne = await _apiService.initiatePayment(email, number, amount,code,subscriptionId,discountAmount);
       hideProgressDialogService();
       if (resposne.status == Constants.SUCCESS) {
         final data = await _navigationService.navigateToView(PaymentPage(

@@ -11,6 +11,7 @@ import 'package:moneypros/model/loan_data.dart';
 import 'package:moneypros/model/login_data.dart';
 import 'package:moneypros/model/notification_data.dart';
 import 'package:moneypros/model/payment_data.dart';
+import 'package:moneypros/model/referal_response.dart';
 import 'package:moneypros/model/state_data.dart';
 import 'package:moneypros/model/subscription_data.dart';
 import 'package:moneypros/model/user_doc_data.dart';
@@ -61,7 +62,7 @@ class ApiService {
 
     myPrint(body.toString());
     try {
-      final result = await http.post(UrlList.LOGIN, body: body);
+      final result = await http.post(Uri.parse(UrlList.LOGIN), body: body);
       //myPrint(result.body.toString());
       final response = json.decode(result.body);
       final basicResponse = BasicResponse<LoginData>.fromJson(json: response);
@@ -84,7 +85,8 @@ class ApiService {
     final commonFeilds = _getCommonFeild();
 
     try {
-      final result = await http.post(UrlList.CHECK_UPDATE, body: commonFeilds);
+      final result =
+          await http.post(Uri.parse(UrlList.CHECK_UPDATE), body: commonFeilds);
       myPrint(result.body.toString());
       final response = json.decode(result.body);
       final basicResponse = BasicResponse<String>.fromJson(json: response);
@@ -107,7 +109,8 @@ class ApiService {
     body.addAll(commonFeilds);
 
     try {
-      final result = await http.post(UrlList.ACCESS_TOKEN, body: body);
+      final result =
+          await http.post(Uri.parse(UrlList.ACCESS_TOKEN), body: body);
       myPrint(result.body.toString());
       final response = json.decode(result.body);
       final basicResponse = BasicResponse<String>.fromJson(json: response);
@@ -129,7 +132,7 @@ class ApiService {
     body.addAll(commonFeilds);
     myPrint(body.toString());
     try {
-      final result = await http.post(UrlList.SEND_OTP, body: body);
+      final result = await http.post(Uri.parse(UrlList.SEND_OTP), body: body);
       myPrint(result.body.toString());
       final response = json.decode(result.body);
       final basicResponse = BasicResponse<String>.fromJson(json: response);
@@ -152,7 +155,8 @@ class ApiService {
     body.addAll(commonFeilds);
 
     try {
-      final result = await http.post(UrlList.VERIFY_USER, body: body);
+      final result =
+          await http.post(Uri.parse(UrlList.VERIFY_USER), body: body);
       myPrint(result.body.toString());
       final response = json.decode(result.body);
       final basicResponse = BasicResponse<LoginData>.fromJson(json: response);
@@ -182,7 +186,8 @@ class ApiService {
     body.addAll(commonFeilds);
 
     try {
-      final result = await http.post(UrlList.RESET_PASSWORD, body: body);
+      final result =
+          await http.post(Uri.parse(UrlList.RESET_PASSWORD), body: body);
       myPrint(result.body.toString());
       final response = json.decode(result.body);
       final basicResponse = BasicResponse<String>.fromJson(json: response);
@@ -207,7 +212,8 @@ class ApiService {
     body.addAll(commonFeilds);
 
     try {
-      final result = await http.post(UrlList.CHECK_REGISTERED_USER, body: body);
+      final result =
+          await http.post(Uri.parse(UrlList.CHECK_REGISTERED_USER), body: body);
       myPrint(result.body.toString());
       final response = json.decode(result.body);
       final basicResponse = BasicResponse<String>.fromJson(json: response);
@@ -219,6 +225,39 @@ class ApiService {
     } on Exception catch (e) {
       myPrint(e.toString());
       throw ApiErrorException(SOMETHING_WRONG_TEXT);
+    }
+  }
+
+  Future<BasicResponse<ReferalResponse>> verifyReferalCode(
+      String code, String subscriptionId) async {
+    final commonFeilds = _getCommonFeild();
+    final userId = await Prefs.userId;
+    final body = {
+      "user_id": userId,
+      "subscription_id": subscriptionId,
+      "referral_code": code,
+    };
+    body.addAll(commonFeilds);
+    print("body is " + body.toString());
+
+    try {
+      final result = await http.post(Uri.parse(UrlList.verifyReferral),
+          body: body, headers: await _getHeader());
+      myPrint(result.body.toString());
+      final response = json.decode(result.body);
+      if (response["status"] == "success") {
+        final basicResponse = BasicResponse<ReferalResponse>.fromJson(
+            json: response, data: ReferalResponse.fromJson(response["data"]));
+        return basicResponse;
+      }
+      throw ApiErrorException(response["message"]);
+    } on SocketException catch (e) {
+      throw ApiErrorException(NO_INTERNET_CONN);
+    } on TimeoutException catch (e) {
+      throw ApiErrorException(NO_INTERNET_CONN);
+    } on Exception catch (e) {
+      myPrint(e.toString());
+      throw ApiErrorException(e.toString());
     }
   }
 
@@ -237,7 +276,8 @@ class ApiService {
     body.addAll(commonFeilds);
 
     try {
-      final result = await http.post(UrlList.REGISTER_USER, body: body);
+      final result =
+          await http.post(Uri.parse(UrlList.REGISTER_USER), body: body);
       myPrint(result.body.toString());
       final response = json.decode(result.body);
       final basicResponse = BasicResponse<LoginData>.fromJson(json: response);
@@ -286,7 +326,7 @@ class ApiService {
     myPrint("body is ${body.toString()}");
 
     try {
-      final result = await http.post(UrlList.UPDATE_PERSONAL_DETAILS,
+      final result = await http.post(Uri.parse(UrlList.UPDATE_PERSONAL_DETAILS),
           body: body, headers: await _getHeader());
       myPrint(result.body.toString());
       final response = json.decode(result.body);
@@ -327,8 +367,10 @@ class ApiService {
     body.addAll(commonFeilds);
 
     try {
-      final result = await http.post(UrlList.UPDATE_IDENTITIY_DETAILS,
-          body: body, headers: await _getHeader());
+      final result = await http.post(
+          Uri.parse(UrlList.UPDATE_IDENTITIY_DETAILS),
+          body: body,
+          headers: await _getHeader());
       myPrint(result.body.toString());
       final response = json.decode(result.body);
       final basicResponse = BasicResponse<LoginData>.fromJson(json: response);
@@ -370,7 +412,7 @@ class ApiService {
     };
     body.addAll(commonFeilds);
     try {
-      final result = await http.post(UrlList.UPDATE_ADDRESS_DETAILS,
+      final result = await http.post(Uri.parse(UrlList.UPDATE_ADDRESS_DETAILS),
           body: body, headers: await _getHeader());
       myPrint("result" + result.body);
       final response = json.decode(result.body);
@@ -398,7 +440,7 @@ class ApiService {
     };
     body.addAll(commonFeilds);
     try {
-      final result = await http.post(UrlList.USER_DETAILS,
+      final result = await http.post(Uri.parse(UrlList.USER_DETAILS),
           body: body, headers: await _getHeader());
       final response = json.decode(result.body);
       final basicResponse = BasicResponse<LoginData>.fromJson(json: response);
@@ -438,7 +480,7 @@ class ApiService {
     };
     body.addAll(commonFeilds);
     try {
-      final result = await http.post(UrlList.UPDATE_PROFILE_PIC,
+      final result = await http.post(Uri.parse(UrlList.UPDATE_PROFILE_PIC),
           body: body, headers: await _getHeader());
       final response = json.decode(result.body);
       final basicResponse = BasicResponse<Userdetails>.fromJson(json: response);
@@ -465,7 +507,7 @@ class ApiService {
     };
     body.addAll(commonFeilds);
     try {
-      final result = await http.post(UrlList.CRIF_DATA,
+      final result = await http.post(Uri.parse(UrlList.CRIF_DATA),
           body: body, headers: await _getHeader());
       myPrint(result.body);
       final response = json.decode(result.body);
@@ -502,7 +544,7 @@ class ApiService {
     body.addAll(commonFeilds);
     myPrint("body is ${body.toString()}");
     try {
-      final result = await http.post(UrlList.CRIF_STAGE_TWO,
+      final result = await http.post(Uri.parse(UrlList.CRIF_STAGE_TWO),
           body: body, headers: await _getHeader());
       myPrint(result.body);
       final response = json.decode(result.body);
@@ -535,7 +577,7 @@ class ApiService {
     body.addAll(commonFeilds);
     myPrint("body is ${body.toString()}");
     try {
-      final result = await http.post(UrlList.CRIF_STAGE_THREE,
+      final result = await http.post(Uri.parse(UrlList.CRIF_STAGE_THREE),
           body: body, headers: await _getHeader());
       myPrint(result.body);
       final response = json.decode(result.body);
@@ -559,7 +601,7 @@ class ApiService {
   Future<BasicResponse<List<StateData>>> stateList() async {
     try {
       final result = await http.get(
-        UrlList.STATE_LIST,
+        Uri.parse(UrlList.STATE_LIST),
       );
       final response = json.decode(result.body);
       final basicResponse =
@@ -592,7 +634,7 @@ class ApiService {
         "user_id": "$userId",
       };
       body.addAll(commonFeilds);
-      final result = await http.post(UrlList.SUBSCRPTION,
+      final result = await http.post(Uri.parse(UrlList.SUBSCRPTION),
           body: body, headers: await _getHeader());
       myPrint(result.body.toString());
       final response = json.decode(result.body);
@@ -618,7 +660,12 @@ class ApiService {
   }
 
   Future<BasicResponse<PaymentData>> initiatePayment(
-      String email, String mobile, String amount) async {
+      String email,
+      String mobile,
+      String amount,
+      String code,
+      String subscriptionId,
+      String totalDiscount) async {
     try {
       final commonFeilds = _getCommonFeild();
       final userId = await Prefs.userId;
@@ -627,12 +674,16 @@ class ApiService {
         "email_id": "$email",
         "smobile_no": "$mobile",
         "channel": "MOBILE",
-        "amount": "$amount"
+        "amount": "$amount",
+        "referral_code": "$code",
+        "subscription_id": "$subscriptionId",
+        "total_discount": "$totalDiscount",
       };
       body.addAll(commonFeilds);
-      final result = await http.post(UrlList.INTITAE_PAYMENT,
+      myPrint("initiatePayment body is " + body.toString());
+      final result = await http.post(Uri.parse(UrlList.INTITAE_PAYMENT),
           body: body, headers: await _getHeader());
-      myPrint(result.body.toString());
+      myPrint("initiatePayment " + result.body.toString());
       final response = json.decode(result.body);
       final basicResponse = BasicResponse<PaymentData>.fromJson(json: response);
       if (basicResponse.status == Constants.SUCCESS) {
@@ -656,7 +707,7 @@ class ApiService {
       };
       myPrint(body.toString());
       final result = await http.post(
-        UrlList.LOAN_DETAILS,
+        Uri.parse(UrlList.LOAN_DETAILS),
         body: body,
       );
       myPrint(result.body.toString());
@@ -679,7 +730,7 @@ class ApiService {
   Future<BasicResponse<DashboardData>> dashboardData() async {
     try {
       final result = await http.get(
-        UrlList.DASHBOARD_DETAILS,
+        Uri.parse(UrlList.DASHBOARD_DETAILS),
       );
       myPrint(result.body.toString());
       final response = json.decode(result.body);
@@ -707,7 +758,7 @@ class ApiService {
         "user_id": "$userId",
       };
       body.addAll(commonFeilds);
-      final result = await http.post(UrlList.CRIF_HOSTORY_DATES,
+      final result = await http.post(Uri.parse(UrlList.CRIF_HOSTORY_DATES),
           body: body, headers: await _getHeader());
       myPrint(result.body.toString());
       final response = json.decode(result.body);
@@ -737,7 +788,7 @@ class ApiService {
       final userId = await Prefs.userId;
       final body = {"user_id": "$userId", "date_val": '$date'};
       body.addAll(commonFeilds);
-      final result = await http.post(UrlList.CRIF_HISTORY,
+      final result = await http.post(Uri.parse(UrlList.CRIF_HISTORY),
           body: body, headers: await _getHeader());
       myPrint(result.body.toString());
       final response = json.decode(result.body);
@@ -760,7 +811,7 @@ class ApiService {
   Future<BasicResponse<List<CityData>>> cityList() async {
     try {
       final result = await http.get(
-        UrlList.CITY_LIST,
+        Uri.parse(UrlList.CITY_LIST),
       );
       final response = json.decode(result.body);
       final basicResponse =
@@ -793,7 +844,7 @@ class ApiService {
         "user_id": "$userId",
       };
       body.addAll(commonFeilds);
-      final result = await http.post(UrlList.USER_DOCUMENTS,
+      final result = await http.post(Uri.parse(UrlList.USER_DOCUMENTS),
           body: body, headers: await _getHeader());
       myPrint(result.body.toString());
       final response = json.decode(result.body);
@@ -877,7 +928,7 @@ class ApiService {
         "document_id": "$id",
       };
       body.addAll(commonFeilds);
-      final result = await http.post(UrlList.DELETE_DOCUMENT,
+      final result = await http.post(Uri.parse(UrlList.DELETE_DOCUMENT),
           body: body, headers: await _getHeader());
       myPrint(result.body.toString());
       final response = json.decode(result.body);
@@ -903,7 +954,7 @@ class ApiService {
     body.addAll(commonBody);
     myPrint(body.toString());
     try {
-      final result = await http.post(UrlList.NOTIFICATION,
+      final result = await http.post(Uri.parse(UrlList.NOTIFICATION),
           body: body, headers: await _getHeader());
       myPrint(result.body.toString());
       final response = json.decode(result.body);
@@ -940,7 +991,7 @@ class ApiService {
     body.addAll(commonBody);
     myPrint(body.toString());
     try {
-      final result = await http.post(UrlList.DELETE_NOTIFICATION,
+      final result = await http.post(Uri.parse(UrlList.DELETE_NOTIFICATION),
           body: body, headers: await _getHeader());
       myPrint(result.body.toString());
       final response = json.decode(result.body);
@@ -969,7 +1020,7 @@ class ApiService {
     body.addAll(commonBody);
     myPrint(body.toString());
     try {
-      final result = await http.post(UrlList.DELETE_NOTIFICATION,
+      final result = await http.post(Uri.parse(UrlList.DELETE_NOTIFICATION),
           body: body, headers: await _getHeader());
       myPrint(result.body.toString());
       final response = json.decode(result.body);
@@ -1000,7 +1051,7 @@ class ApiService {
     body.addAll(commonBody);
     myPrint(body.toString());
     try {
-      final result = await http.post(UrlList.EQUIRY, body: body);
+      final result = await http.post(Uri.parse(UrlList.EQUIRY), body: body);
       myPrint(result.body.toString());
       final response = json.decode(result.body);
       final basicResponse =

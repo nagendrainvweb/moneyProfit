@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:moneypros/app/user_repository.dart';
 import 'package:moneypros/app_widegt/AppButton.dart';
 import 'package:moneypros/app_widegt/AppErrorWidget.dart';

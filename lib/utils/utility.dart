@@ -70,9 +70,11 @@ class Utility {
         MediaQuery.of(context).size.width * 0.3;
   }
 
- static Future<File> compressFile(File file) async{
-    File compressedFile = await FlutterNativeImage.compressImage(file.path,
-        quality: 5,);
+  static Future<File> compressFile(File file) async {
+    File compressedFile = await FlutterNativeImage.compressImage(
+      file.path,
+      quality: 5,
+    );
     return compressedFile;
   }
 
@@ -87,15 +89,15 @@ class Utility {
       value = "Pancard";
     } else if (type == "Aadhar Card") {
       value = "AadharCard";
-    }else if (type == "Driving license") {
+    } else if (type == "Driving license") {
       value = "Drivinglicense";
-    }else if (type == "Voter Id") {
+    } else if (type == "Voter Id") {
       value = "Voterid";
-    }else if (type == "Passport") {
+    } else if (type == "Passport") {
       value = "Passport";
-    }else if (type == "Ration Card") {
+    } else if (type == "Ration Card") {
       value = "Rationcard";
-    }else {
+    } else {
       value = "Pancard";
     }
     return value;
@@ -107,19 +109,20 @@ class Utility {
       value = "Pan Card";
     } else if (type == "AadharCard") {
       value = "Aadhar Card";
-    }else if (type == "Drivinglicense") {
+    } else if (type == "Drivinglicense") {
       value = "Driving license";
-    }else if (type == "Voterid") {
+    } else if (type == "Voterid") {
       value = "Voter Id";
-    }else if (type == "Passport") {
+    } else if (type == "Passport") {
       value = "Passport";
-    }else if (type == "Rationcard") {
+    } else if (type == "Rationcard") {
       value = "Ration Card";
-    }else {
+    } else {
       value = "Pan Card";
     }
     return value;
   }
+
   static String getLoanTypeImagePath(String type) {
     String image = "";
     if (type.contains(AppStrings.creditCard)) {
@@ -182,6 +185,10 @@ class Utility {
           builder: (context) => page,
           settings: RouteSettings(name: '${page.runtimeType}')),
     );
+  }
+
+  static showSnackBar(BuildContext context,String data) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(data)));
   }
 
   static Future pushToDashboard(int position) async {

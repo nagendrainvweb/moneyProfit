@@ -16,6 +16,7 @@ class UrlList {
   static final String UPDATE_ADDRESS_DETAILS =
       BASE_URL + "updateAddressDetails";
   static final String USER_DETAILS = BASE_URL + "userDetails";
+    static final String verifyReferral = BASE_URL + "verifyReferral";
   static final String UPDATE_PROFILE_PIC = BASE_URL + "updateProfilePic";
   static final String STATE_LIST = BASE_URL + "stateList";
   static final String CITY_LIST = BASE_URL + "CityList";
