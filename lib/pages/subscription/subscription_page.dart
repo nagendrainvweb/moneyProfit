@@ -380,14 +380,14 @@ class _ReferalCodeWidgetState extends State<ReferalCodeWidget> with AppHelper {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 25,
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.green),
+                border: Border.all(color: AppColors.kBlueLightColor),
                 borderRadius: BorderRadius.circular(12),
-                color: AppColors.green,
+                color: AppColors.kBlueLightColor,
               ),
               child: Row(
                 children: [
@@ -395,7 +395,7 @@ class _ReferalCodeWidgetState extends State<ReferalCodeWidget> with AppHelper {
                       child: Container(
                     //  margin: EdgeInsets.symmetric(horizontal: 2,vertical: 0),
                     decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.green, width: 0),
+                      border: Border.all(color: AppColors.kBlueLightColor, width: 0),
                       borderRadius: BorderRadius.circular(12),
                       color: AppColors.white,
                     ),
@@ -411,11 +411,13 @@ class _ReferalCodeWidgetState extends State<ReferalCodeWidget> with AppHelper {
                   )),
                   InkWell(
                       onTap: referalStatus ? removeCode : applyReferalCode,
-                      child: Padding(
+                      child: Container(
+                        width: 100,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 12),
                         child: Text(
                           referalStatus ? "Remove" : "Apply",
+                          textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.white),
                         ),
                       )),
@@ -428,7 +430,7 @@ class _ReferalCodeWidgetState extends State<ReferalCodeWidget> with AppHelper {
                     fontSize: 12,
                     color: referalStatus ? Colors.green : Colors.red)),
             SizedBox(
-              height: 10,
+              height: 5,
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -487,6 +489,7 @@ class _ReferalCodeWidgetState extends State<ReferalCodeWidget> with AppHelper {
                 ),
               ),
             ),
+            SizedBox(height: 20,)
           ],
         ),
       ),
